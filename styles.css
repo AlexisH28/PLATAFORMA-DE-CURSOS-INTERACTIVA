@@ -1,0 +1,53 @@
+/* Estilos generales */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header y navegación */
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+header nav {
+    margin: 10px 0;
+}
+
+header input, header select {
+    margin: 5px;
+    padding: 5px;
+}
+
+main {
+    display: flex;
+    padding: 20px;
+}
+
+#course-list, #course-details, #course-form {
+    flex: 1;
+    margin: 10px;
+}
+
+/* Estilos para formularios */
+
+form input, form textarea {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

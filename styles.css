@@ -97,7 +97,6 @@ main {
     color: #555;
 }
 
-
 #course-form {
     margin-bottom: 20px;
 }
@@ -114,7 +113,7 @@ form input, form textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-    resize: vertical; 
+    resize: vertical; /* Permite redimensionar el textarea verticalmente */
 }
 
 form button {

@@ -113,7 +113,7 @@ form input, form textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-    resize: vertical; /* Permite redimensionar el textarea verticalmente */
+    resize: vertical; 
 }
 
 form button {

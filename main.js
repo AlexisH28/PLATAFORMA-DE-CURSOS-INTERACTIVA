@@ -65,7 +65,7 @@
         var content = document.getElementById('course-content').value;
     
         if (editingCourseId) {
-            // Editar curso existente
+            
             for (var i = 0; i < courses.length; i++) {
             if (courses[i].id === editingCourseId) {
                 courses[i].name = name;
@@ -78,7 +78,7 @@
             formTitle.textContent = 'Agregar Curso';
             submitBtn.textContent = 'Guardar';
         } else {
-            // Agregar nuevo curso
+            
             var newCourse = {
             id: courses.length + 1,
             name: name,
@@ -88,7 +88,7 @@
             courses.push(newCourse);
         }
     
-        // Limpiar formulario
+        
         courseForm.reset();
         renderCourses();
         };

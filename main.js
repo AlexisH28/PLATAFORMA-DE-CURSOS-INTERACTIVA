@@ -1,81 +1,97 @@
-    document.addEventListener('DOMContentLoaded', () => {
-        let courses = [
+    document.addEventListener('DOMContentLoaded', function() {
+        // Array de cursos iniciales
+        var courses = [
         { id: 1, name: 'Curso de Programación', description: 'Aprende a programar', content: 'Contenido del curso...' },
         { id: 2, name: 'Curso de Diseño', description: 'Aprende diseño gráfico', content: 'Contenido del curso...' }
         ];
     
-        const courseList = document.getElementById('course-list');
-        const courseDetails = document.getElementById('course-details');
-        const courseForm = document.getElementById('add-edit-course');
-        const formTitle = document.getElementById('form-title');
-        const submitBtn = document.getElementById('submit-btn');
+        var courseList = document.getElementById('course-list');
+        var courseDetails = document.getElementById('course-details');
+        var courseForm = document.getElementById('add-edit-course');
+        var formTitle = document.getElementById('form-title');
+        var submitBtn = document.getElementById('submit-btn');
     
-        let editingCourseId = null;
-    
-        // Función para renderizar la lista de cursos
-        const renderCourses = () => {
+        var editingCourseId = null;
+
+        function renderCourses() {
         courseList.innerHTML = '';
-        courses.forEach(course => {
-            const courseItem = document.createElement('div');
+        for (var i = 0; i < courses.length; i++) {
+            var course = courses[i];
+            var courseItem = document.createElement('div');
             courseItem.className = 'course-item';
-            courseItem.innerHTML = `
-            <h3>${course.name}</h3>
-            <p>${course.description}</p>
-            <button onclick="viewCourse(${course.id})">Ver</button>
-            <button onclick="editCourse(${course.id})">Editar</button>
-            <button onclick="deleteCourse(${course.id})">Eliminar</button>
-            `;
+            courseItem.innerHTML = '<h3>' + course.name + '</h3>' +
+                                '<p>' + course.description + '</p>' +
+                                '<button onclick="viewCourse(' + course.id + ')">Ver</button>' +
+                                '<button onclick="editCourse(' + course.id + ')">Editar</button>' +
+                                '<button onclick="deleteCourse(' + course.id + ')">Eliminar</button>';
             courseList.appendChild(courseItem);
-        });
-        };
+        }
+        }
     
         // Función para ver detalles del curso
-        window.viewCourse = (id) => {
-        const course = courses.find(c => c.id === id);
-        courseDetails.innerHTML = `
-            <h2>${course.name}</h2>
-            <p>${course.description}</p>
-            <p>${course.content}</p>
-        `;
+        window.viewCourse = function(id) {
+        var course = courses.find(function(c) { return c.id === id; });
+        if (course) {
+            courseDetails.innerHTML = '<h2>' + course.name + '</h2>' +
+                                    '<p>' + course.description + '</p>' +
+                                    '<p>' + course.content + '</p>';
+        }
         };
     
         // Función para editar un curso
-        window.editCourse = (id) => {
-        const course = courses.find(c => c.id === id);
-        document.getElementById('course-name').value = course.name;
-        document.getElementById('course-description').value = course.description;
-        document.getElementById('course-content').value = course.content;
-        editingCourseId = id;
-        formTitle.textContent = 'Editar Curso';
-        submitBtn.textContent = 'Actualizar';
+        window.editCourse = function(id) {
+        var course = courses.find(function(c) { return c.id === id; });
+        if (course) {
+            document.getElementById('course-name').value = course.name;
+            document.getElementById('course-description').value = course.description;
+            document.getElementById('course-content').value = course.content;
+            editingCourseId = id;
+            formTitle.textContent = 'Editar Curso';
+            submitBtn.textContent = 'Actualizar';
+        }
         };
     
         // Función para eliminar un curso
-        window.deleteCourse = (id) => {
-        courses = courses.filter(c => c.id !== id);
+        window.deleteCourse = function(id) {
+        courses = courses.filter(function(c) { return c.id !== id; });
         renderCourses();
         };
     
         // Evento para agregar o editar curso
-        courseForm.addEventListener('submit', (e) => {
+        courseForm.onsubmit = function(e) {
         e.preventDefault();
-        const name = document.getElementById('course-name').value;
-        const description = document.getElementById('course-description').value;
-        const content = document.getElementById('course-content').value;
+        var name = document.getElementById('course-name').value;
+        var description = document.getElementById('course-description').value;
+        var content = document.getElementById('course-content').value;
     
         if (editingCourseId) {
-            const index = courses.findIndex(c => c.id === editingCourseId);
-            courses[index] = { id: editingCourseId, name, description, content };
+            // Editar curso existente
+            for (var i = 0; i < courses.length; i++) {
+            if (courses[i].id === editingCourseId) {
+                courses[i].name = name;
+                courses[i].description = description;
+                courses[i].content = content;
+                break;
+            }
+            }
             editingCourseId = null;
             formTitle.textContent = 'Agregar Curso';
             submitBtn.textContent = 'Guardar';
         } else {
-            courses.push({ id: Date.now(), name, description, content });
+            // Agregar nuevo curso
+            var newCourse = {
+            id: courses.length + 1,
+            name: name,
+            description: description,
+            content: content
+            };
+            courses.push(newCourse);
         }
     
+        // Limpiar formulario
         courseForm.reset();
         renderCourses();
-        });
+        };
     
         // Renderizar cursos iniciales
         renderCourses();

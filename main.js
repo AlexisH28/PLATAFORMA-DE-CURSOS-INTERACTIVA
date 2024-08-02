@@ -63,3 +63,36 @@
         var name = document.getElementById('course-name').value;
         var description = document.getElementById('course-description').value;
         var content = document.getElementById('course-content').value;
+
+        if (editingCourseId) {
+            
+            for (var i = 0; i < courses.length; i++) {
+            if (courses[i].id === editingCourseId) {
+                courses[i].name = name;
+                courses[i].description = description;
+                courses[i].content = content;
+                break;
+            }
+            }
+            editingCourseId = null;
+            formTitle.textContent = 'Agregar Curso';
+            submitBtn.textContent = 'Guardar';
+        } else {
+            
+            var newCourse = {
+            id: courses.length + 1,
+            name: name,
+            description: description,
+            content: content
+            };
+            courses.push(newCourse);
+        }
+    
+        
+        courseForm.reset();
+        renderCourses();
+        };
+    
+        // Renderizar cursos iniciales
+        renderCourses();
+    });
